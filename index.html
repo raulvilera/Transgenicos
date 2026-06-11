@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>Atividade de Ciências – 2º Bimestre | E.E. Wanda Mascagni de Sá</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=DM+Serif+Display:ital@0;1&display=swap');
+
+  :root {
+    --verde:    #1a6e4a;
+    --verde2:   #2a9d6f;
+    --verde-bg: #e8f5ee;
+    --azul:     #1b4f72;
+    --azul-med: #2471a3;
+    --cinza1:   #f4f7f6;
+    --cinza2:   #e2eae6;
+    --cinza3:   #b0c4bc;
+    --texto:    #1a2a23;
+    --erro:     #c0392b;
+    --acerto:   #1a7a4a;
+    --amarelo:  #f39c12;
+    --r:        20px;
+    --r2:       40px;
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(160deg, #d4eadf 0%, #b8d9c9 100%);
+    min-height: 100vh;
+    color: var(--texto);
+    padding-bottom: 80px;
+  }
+
+  /* ── CABEÇALHO ── */
+  .header {
+    background: var(--verde);
+    color: white;
+    padding: 20px 24px 18px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::after {
+    content: '';
+    position: absolute;
+    bottom: -1px; left: 0; right: 0; height: 18px;
+    background: linear-gradient(160deg, #d4eadf 0%, #b8d9c9 100%);
+    clip-path: ellipse(55% 100% at 50% 100%);
+  }
+  .header-inner { max-width: 860px; margin: 0 auto; }
+  .header-tag {
+    font-size: 0.65rem; font-weight: 600; letter-spacing: 2px;
+    text-transform: uppercase; opacity: .7; margin-bottom: 6px;
+  }
+  .header h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(1.3rem, 4vw, 1.9rem);
+    line-height: 1.2;
+    margin-bottom: 4px;
+  }
+  .header-sub { font-size: 0.82rem; opacity: .75; font-weight: 400; }
+
+  /* ── WRAP PRINCIPAL ── */
+  .wrap { max-width: 860px; margin: 0 auto; padding: 0 18px; }
+
+  /* ── CARD BASE ── */
+  .card {
+    background: rgba(255,255,255,0.94);
+    backdrop-filter: blur(4px);
+    border-radius: var(--r2);
+    padding: 24px 28px;
+    margin: 22px 0;
+    border: 1px solid rgba(255,255,255,0.7);
+    box-shadow: 0 12px 28px -10px rgba(26,110,74,0.18), inset 0 1px 0 rgba(255,255,255,0.9);
+  }
+  .card-title {
+    font-size: 0.65rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 2px; color: var(--verde); margin-bottom: 18px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .card-title::before {
+    content: ''; display: block; width: 20px; height: 2px;
+    background: var(--verde2); border-radius: 2px;
+  }
+
+  /* ── IDENTIFICAÇÃO ── */
+  .id-grid { display: grid; gap: 14px; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
+  .id-grid .full { grid-column: 1 / -1; }
+
+  .field label {
+    display: block; font-size: 0.68rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: .5px;
+    color: var(--verde); margin-bottom: 6px;
+  }
+  .field select, .field input {
+    width: 100%; padding: 11px 14px;
+    background: #f7fbf9; border: 1.5px solid var(--cinza2);
+    border-radius: var(--r); font-family: 'Inter', sans-serif;
+    font-size: 0.88rem; color: var(--texto);
+    transition: border-color .15s, box-shadow .15s;
+    appearance: none;
+  }
+  .field select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%231a6e4a' stroke-width='1.8' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    padding-right: 38px;
+  }
+  .field select:focus, .field input:focus {
+    outline: none; border-color: var(--verde2);
+    box-shadow: 0 0 0 3px rgba(42,157,111,0.18);
+  }
+  .field input[readonly] {
+    background: var(--cinza1); color: #4a7060;
+    border-color: var(--cinza2); cursor: default;
+  }
+
+  /* ── AVISO ABA ── */
+  #tab-warning {
+    background: #fff8e1; border-left: 4px solid var(--amarelo);
+    border-radius: var(--r); padding: 12px 18px;
+    margin: 0 0 16px; font-size: 0.83rem; font-weight: 500;
+    color: #7a5500; display: none; align-items: center; gap: 10px;
+  }
+  #tab-warning.vis { display: flex; }
+
+  /* ── PROGRESSO ── */
+  .prog-wrap { margin: 18px 0 6px; }
+  .prog-bar { height: 8px; background: var(--cinza2); border-radius: 99px; overflow: hidden; }
+  .prog-fill {
+    height: 100%; width: 0%;
+    background: linear-gradient(90deg, var(--verde), var(--verde2));
+    border-radius: 99px; transition: width .3s ease;
+  }
+  .prog-label { text-align: right; font-size: 0.72rem; margin-top: 7px; color: var(--verde); font-weight: 600; }
+
+  /* ── QUESTÃO ── */
+  .q-card {
+    background: rgba(255,255,255,0.95);
+    border-radius: 28px; padding: 22px 24px;
+    margin-bottom: 24px;
+    border: 1.5px solid var(--cinza2);
+    box-shadow: 0 8px 20px -10px rgba(26,110,74,0.12), inset 0 1px 0 white;
+    transition: border-color .15s;
+  }
+  .q-card.answered { border-color: var(--verde2); }
+
+  .q-head { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 16px; flex-wrap: wrap; }
+  .q-num {
+    background: var(--verde); color: white;
+    width: 40px; height: 40px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'DM Serif Display', serif; font-size: 1.2rem;
+    flex-shrink: 0;
+    box-shadow: 0 4px 10px rgba(26,110,74,0.3);
+  }
+  .q-meta { display: flex; flex-wrap: wrap; gap: 6px; padding-top: 6px; }
+  .q-tag, .q-hab, .q-diff {
+    font-size: 0.67rem; font-weight: 600; padding: 4px 10px;
+    border-radius: 99px;
+  }
+  .q-tag  { background: var(--verde-bg); color: var(--verde); }
+  .q-hab  { background: #e8f0fb; color: var(--azul-med); }
+  .q-diff-h { background: #fde8e8; color: #a62020; }
+  .q-diff-m { background: #fef3d8; color: #916b00; }
+  .q-diff-f { background: var(--verde-bg); color: var(--verde); }
+
+  .q-enunciado { font-size: 0.95rem; line-height: 1.65; margin: 10px 0 6px; }
+  .q-contexto {
+    background: var(--cinza1); border-left: 3px solid var(--verde2);
+    padding: 12px 16px; border-radius: 0 12px 12px 0;
+    font-size: 0.87rem; line-height: 1.6; color: #2c4a38;
+    margin: 14px 0; font-style: italic;
+  }
+  .q-img {
+    max-width: 100%; border-radius: 16px; margin: 14px 0;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.1);
+    display: block;
+  }
+
+  /* ── OPÇÕES OBJETIVAS ── */
+  .opts { list-style: none; display: flex; flex-direction: column; gap: 10px; margin: 16px 0 8px; }
+  .opt-btn {
+    display: flex; align-items: center; gap: 12px;
+    padding: 12px 18px;
+    background: var(--cinza1); border: 1.5px solid var(--cinza2);
+    border-radius: 60px; font-family: 'Inter', sans-serif;
+    font-size: 0.88rem; color: var(--texto); text-align: left;
+    width: 100%; cursor: pointer;
+    transition: all .08s linear;
+    box-shadow: 0 4px 0 var(--cinza3);
+  }
+  .opt-btn:active { transform: translateY(3px); box-shadow: 0 1px 0 var(--cinza3); }
+  .opt-btn:hover:not(:disabled) {
+    background: var(--verde-bg); border-color: var(--verde2);
+    transform: translateY(-1px); box-shadow: 0 5px 0 #9abfb0;
+  }
+  .opt-btn.sel {
+    background: var(--verde); border-color: var(--verde2);
+    color: white; box-shadow: 0 4px 0 #0f4a2e;
+  }
+  .opt-btn:disabled { opacity: .75; cursor: default; transform: none; }
+  .opt-btn.correct-show { background: #d4ede1; border-color: var(--verde); color: var(--verde); box-shadow: 0 4px 0 #8fbfa8; }
+  .opt-btn.wrong-show   { background: #fde8e8; border-color: #c0392b; color: #8b2222; box-shadow: 0 4px 0 #e8a5a5; }
+  .opt-letter {
+    font-weight: 800; font-size: 0.9rem; min-width: 28px; height: 28px;
+    background: rgba(255,255,255,0.45); border-radius: 50%;
+    display: inline-flex; align-items: center; justify-content: center;
+    color: var(--verde);
+  }
+  .sel .opt-letter { background: rgba(255,255,255,0.25); color: white; }
+
+  /* ── DISCURSIVA ── */
+  .disc-area {
+    width: 100%; min-height: 130px; padding: 14px 16px;
+    background: var(--cinza1); border: 1.5px solid var(--cinza2);
+    border-radius: var(--r); font-family: 'Inter', sans-serif;
+    font-size: 0.9rem; color: var(--texto); resize: vertical;
+    transition: border-color .15s;
+    margin-top: 14px;
+  }
+  .disc-area:focus { outline: none; border-color: var(--verde2); box-shadow: 0 0 0 3px rgba(42,157,111,0.16); }
+  .disc-area:disabled { opacity: .7; cursor: default; }
+  .disc-label { font-size: 0.75rem; color: #4a7060; margin-top: 6px; }
+
+  /* ── FEEDBACK ── */
+  .feedback {
+    display: none; margin-top: 14px; padding: 10px 16px;
+    border-radius: 20px; font-size: 0.83rem; line-height: 1.5;
+    border-left: 4px solid;
+  }
+  .feedback.show { display: block; }
+  .feedback.ok  { background: #dcf5e5; border-color: var(--verde); color: #145c2e; }
+  .feedback.err { background: #fde8e8; border-color: var(--erro); color: #8b2222; }
+
+  /* ── BOTÕES DE AÇÃO ── */
+  .action-row { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin: 28px 0 20px; }
+  .action-btn {
+    font-family: 'Inter', sans-serif; font-weight: 700; font-size: 0.95rem;
+    padding: 14px 38px; border: none; border-radius: 60px; cursor: pointer;
+    transition: .08s linear; letter-spacing: .3px;
+  }
+  .action-btn:active { transform: translateY(3px); }
+  #btn-submit {
+    background: var(--verde); color: white;
+    box-shadow: 0 6px 0 #0f4a2e;
+  }
+  #btn-submit:active { box-shadow: 0 2px 0 #0f4a2e; }
+  #btn-clear {
+    background: #e67e22; color: white;
+    box-shadow: 0 6px 0 #9c5415;
+  }
+  #btn-clear:active { box-shadow: 0 2px 0 #9c5415; }
+  .action-btn:disabled { opacity: .5; cursor: not-allowed; transform: none; }
+
+  /* ── STATUS ENVIO ── */
+  #send-status {
+    max-width: 860px; margin: 10px auto; padding: 14px 22px;
+    border-radius: 24px; font-weight: 500; text-align: center;
+    display: none; font-size: 0.9rem;
+  }
+
+  /* ── PAINEL RESULTADO ── */
+  #result-panel {
+    background: rgba(255,255,255,0.95); backdrop-filter: blur(6px);
+    border-radius: 40px; padding: 32px 24px; text-align: center;
+    margin: 28px auto; max-width: 520px;
+    border: 1px solid rgba(255,255,255,0.7);
+    box-shadow: 0 16px 36px -12px rgba(26,110,74,0.2);
+    display: none;
+  }
+  .score-ring {
+    width: 110px; height: 110px; border-radius: 50%;
+    margin: 0 auto 20px;
+    background: conic-gradient(var(--verde) 0%, var(--cinza2) 0%);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    box-shadow: 0 4px 16px rgba(26,110,74,0.2);
+    position: relative;
+  }
+  .score-ring::before {
+    content: ''; position: absolute;
+    width: 80px; height: 80px; background: white;
+    border-radius: 50%;
+  }
+  .score-ring span { position: relative; z-index: 1; }
+  .score-pct { font-family: 'DM Serif Display', serif; font-size: 1.6rem; color: var(--verde); }
+  .score-frac { font-size: 0.75rem; color: #4a7060; }
+  #result-msg { font-family: 'DM Serif Display', serif; font-size: 1.3rem; margin-bottom: 8px; color: var(--verde); }
+  #result-sub { font-size: 0.85rem; color: #4a7060; margin-bottom: 20px; }
+  #btn-retry {
+    background: var(--verde); color: white; border: none;
+    padding: 11px 28px; border-radius: 60px; font-weight: 700;
+    cursor: pointer; box-shadow: 0 4px 0 #0f4a2e; font-family: 'Inter', sans-serif;
+  }
+
+  /* ── HAB PANEL ── */
+  #hab-panel {
+    background: #fff8e1; border-radius: 24px; padding: 18px 22px;
+    margin: 16px auto; max-width: 860px; display: none;
+    border: 1px solid #ffe57a;
+  }
+  #hab-panel.vis { display: block; }
+  #hab-panel h4 { font-size: 0.85rem; color: #7a5500; margin-bottom: 10px; }
+  #hab-list li { font-size: 0.82rem; color: #5a3d00; margin: 4px 0 4px 16px; }
+
+  @media (max-width: 600px) {
+    .card { padding: 18px 16px; }
+    .q-card { padding: 16px; }
+    .opt-btn { padding: 10px 14px; font-size: 0.84rem; }
+  }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-inner">
+    <div class="header-tag">E.E. Profª Wanda Mascagni de Sá · SEDUC-SP · Guarulhos Norte</div>
+    <h1>Atividade de Ciências</h1>
+    <div class="header-sub">2º Bimestre · Biologia &amp; Ecologia · Ensino Médio</div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <!-- IDENTIFICAÇÃO -->
+  <div class="card">
+    <div class="card-title">Identificação do Aluno</div>
+    <div class="id-grid">
+      <div class="field full">
+        <label>Turma</label>
+        <select id="sel-turma">
+          <option value="">Selecione a turma…</option>
+          <option value="2DS">2º DS (Noturno)</option>
+        </select>
+      </div>
+      <div class="field full">
+        <label>Nome do Aluno</label>
+        <select id="sel-aluno" disabled>
+          <option value="">Selecione seu nome…</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Nº Chamada</label>
+        <input type="text" id="inp-chamada" readonly placeholder="—">
+      </div>
+      <div class="field">
+        <label>RA (com dígito)</label>
+        <input type="text" id="inp-ra" readonly placeholder="—">
+      </div>
+      <div class="field">
+        <label>Data de Nascimento</label>
+        <input type="text" id="inp-nasc" readonly placeholder="—">
+      </div>
+      <div class="field">
+        <label>Data da Atividade</label>
+        <input type="date" id="inp-date">
+      </div>
+      <div class="field full">
+        <label>E-mail Institucional</label>
+        <input type="email" id="inp-email" readonly placeholder="—">
+      </div>
+    </div>
+  </div>
+
+  <div id="tab-warning">
+    <span>⚠️</span>
+    <span id="tab-warn-txt">Atenção: você saiu da aba. Registro contabilizado.</span>
+  </div>
+
+  <div class="prog-wrap">
+    <div class="prog-bar"><div class="prog-fill" id="prog-fill"></div></div>
+    <div class="prog-label" id="prog-label">0 / 7 questões respondidas</div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       QUESTÃO 01 — Bioacumulação / Biomagnificação (OBJETIVA)
+  ══════════════════════════════════════════ -->
+  <div class="q-card" id="q1">
+    <div class="q-head">
+      <div class="q-num">1</div>
+      <div class="q-meta">
+        <span class="q-tag">Bioacumulação · Biomagnificação</span>
+        <span class="q-hab">EM13CNT206</span>
+        <span class="q-diff q-diff-m">Média</span>
+      </div>
+    </div>
+    <p class="q-enunciado">O desastre ambiental de Mariana, em 2015, resultou no lançamento de milhões de metros cúbicos de rejeitos de mineração no Rio Doce. Estudos subsequentes revelaram a presença de metais pesados, como o manganês, em níveis elevados nos peixes da região. A exposição crônica a esses metais pode causar distúrbios neurodegenerativos em seres humanos que consomem esses peixes.</p>
+    <p class="q-enunciado" style="margin-top:10px">Considerando o cenário descrito e o processo de biomagnificação, assinale a alternativa que corretamente relaciona os riscos à saúde humana com os conceitos de bioacumulação e biomagnificação:</p>
+    <ul class="opts" id="opts1">
+      <li><button class="opt-btn" data-q="1" data-letter="A"><span class="opt-letter">A</span> A bioacumulação refere-se ao aumento da concentração de uma substância em um único organismo ao longo do tempo, enquanto a biomagnificação é o aumento progressivo dessa concentração ao longo da cadeia alimentar.</button></li>
+      <li><button class="opt-btn" data-q="1" data-letter="B"><span class="opt-letter">B</span> A biomagnificação é o processo de absorção de contaminantes diretamente do ambiente por um organismo, e a bioacumulação é o acúmulo em um único nível trófico.</button></li>
+      <li><button class="opt-btn" data-q="1" data-letter="C"><span class="opt-letter">C</span> Os metais pesados, como o manganês, são rapidamente eliminados do organismo, não representando risco significativo para a saúde humana.</button></li>
+      <li><button class="opt-btn" data-q="1" data-letter="D"><span class="opt-letter">D</span> A bioacumulação e a biomagnificação são processos idênticos que descrevem o acúmulo de substâncias tóxicas no ambiente.</button></li>
+      <li><button class="opt-btn" data-q="1" data-letter="E"><span class="opt-letter">E</span> O consumo de peixes contaminados por manganês afeta apenas os organismos aquáticos, não havendo transferência de toxicidade para os seres humanos.</button></li>
+    </ul>
+    <div class="feedback" id="fb1"></div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       QUESTÃO 02 — OGMs / Biossegurança (OBJETIVA)
+  ══════════════════════════════════════════ -->
+  <div class="q-card" id="q2">
+    <div class="q-head">
+      <div class="q-num">2</div>
+      <div class="q-meta">
+        <span class="q-tag">OGMs · Biossegurança · CTNBio</span>
+        <span class="q-hab">EM13CNT301</span>
+        <span class="q-diff q-diff-f">Fácil</span>
+      </div>
+    </div>
+    <p class="q-enunciado">O Brasil possui uma legislação específica para a regulamentação de Organismos Geneticamente Modificados (OGMs), visando garantir a segurança alimentar e ambiental. A Comissão Técnica Nacional de Biossegurança (CTNBio) é o órgão responsável por avaliar e liberar o uso desses organismos no país.</p>
+    <p class="q-enunciado" style="margin-top:10px">Em relação aos OGMs e à biossegurança, é correto afirmar que:</p>
+    <ul class="opts" id="opts2">
+      <li><button class="opt-btn" data-q="2" data-letter="A"><span class="opt-letter">A</span> A biossegurança tem como principal objetivo proibir totalmente a produção e comercialização de OGMs no Brasil.</button></li>
+      <li><button class="opt-btn" data-q="2" data-letter="B"><span class="opt-letter">B</span> O símbolo "T" nos rótulos indica que o alimento é orgânico e livre de qualquer modificação genética, garantindo sua pureza.</button></li>
+      <li><button class="opt-btn" data-q="2" data-letter="C"><span class="opt-letter">C</span> A biossegurança atua na avaliação e controle dos riscos potenciais à saúde humana e ao meio ambiente decorrentes do uso de OGMs.</button></li>
+      <li><button class="opt-btn" data-q="2" data-letter="D"><span class="opt-letter">D</span> A CTNBio é responsável apenas por fiscalizar a produção de OGMs, sem qualquer participação na avaliação de riscos.</button></li>
+      <li><button class="opt-btn" data-q="2" data-letter="E"><span class="opt-letter">E</span> O uso de transgênicos não apresenta riscos, sendo a biossegurança uma formalidade burocrática sem impacto real.</button></li>
+    </ul>
+    <div class="feedback" id="fb2"></div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       QUESTÃO 03 — Célula Eucarionte / DNA (OBJETIVA)
+  ══════════════════════════════════════════ -->
+  <div class="q-card" id="q3">
+    <div class="q-head">
+      <div class="q-num">3</div>
+      <div class="q-meta">
+        <span class="q-tag">Célula Eucarionte · Material Genético</span>
+        <span class="q-hab">EM13CNT203</span>
+        <span class="q-diff q-diff-f">Fácil</span>
+      </div>
+    </div>
+    <p class="q-enunciado">A célula eucarionte é a unidade fundamental da vida em organismos mais complexos, como plantas, animais e fungos. Sua estrutura é altamente organizada, com diversas organelas que desempenham funções específicas.</p>
+    <p class="q-enunciado" style="margin-top:10px">Assinale a alternativa que preenche corretamente as lacunas: <em>"Nas células eucariontes, o material genético, que é o __________, está localizado principalmente no __________."</em></p>
+    <ul class="opts" id="opts3">
+      <li><button class="opt-btn" data-q="3" data-letter="A"><span class="opt-letter">A</span> RNA; citoplasma</button></li>
+      <li><button class="opt-btn" data-q="3" data-letter="B"><span class="opt-letter">B</span> DNA; núcleo</button></li>
+      <li><button class="opt-btn" data-q="3" data-letter="C"><span class="opt-letter">C</span> Proteína; ribossomo</button></li>
+      <li><button class="opt-btn" data-q="3" data-letter="D"><span class="opt-letter">D</span> Cromossomo; mitocôndria</button></li>
+      <li><button class="opt-btn" data-q="3" data-letter="E"><span class="opt-letter">E</span> Gene; membrana plasmática</button></li>
+    </ul>
+    <div class="feedback" id="fb3"></div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       QUESTÃO 04 — Preservação vs Conservação (OBJETIVA)
+  ══════════════════════════════════════════ -->
+  <div class="q-card" id="q4">
+    <div class="q-head">
+      <div class="q-num">4</div>
+      <div class="q-meta">
+        <span class="q-tag">Preservação · Conservação Ambiental</span>
+        <span class="q-hab">EM13CNT207</span>
+        <span class="q-diff q-diff-m">Média</span>
+      </div>
+    </div>
+    <p class="q-enunciado">Os conceitos de preservação e conservação ambiental são frequentemente confundidos, mas possuem significados distintos e implicam abordagens diferentes para a proteção da natureza. Ambos são cruciais para a manutenção da biodiversidade e dos recursos naturais.</p>
+    <p class="q-enunciado" style="margin-top:10px">Qual das alternativas apresenta a correta distinção entre os dois conceitos?</p>
+    <ul class="opts" id="opts4">
+      <li><button class="opt-btn" data-q="4" data-letter="A"><span class="opt-letter">A</span> Preservação é o uso sustentável dos recursos naturais, enquanto conservação é a proteção integral.</button></li>
+      <li><button class="opt-btn" data-q="4" data-letter="B"><span class="opt-letter">B</span> Conservação envolve a proteção integral de ecossistemas, e preservação permite o manejo de recursos.</button></li>
+      <li><button class="opt-btn" data-q="4" data-letter="C"><span class="opt-letter">C</span> Preservação busca manter a natureza intocada, enquanto conservação permite o manejo racional para uso sustentável.</button></li>
+      <li><button class="opt-btn" data-q="4" data-letter="D"><span class="opt-letter">D</span> Ambos os termos são sinônimos e se referem à mesma prática de proteção ambiental.</button></li>
+      <li><button class="opt-btn" data-q="4" data-letter="E"><span class="opt-letter">E</span> A preservação foca na recuperação de áreas degradadas, e a conservação na criação de novas áreas protegidas.</button></li>
+    </ul>
+    <div class="feedback" id="fb4"></div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       QUESTÃO 05 — Relações Ecológicas (OBJETIVA)
+  ══════════════════════════════════════════ -->
+  <div class="q-card" id="q5">
+    <div class="q-head">
+      <div class="q-num">5</div>
+      <div class="q-meta">
+        <span class="q-tag">Relações Ecológicas · Controle Biológico</span>
+        <span class="q-hab">EM13CNT206</span>
+        <span class="q-diff q-diff-f">Fácil</span>
+      </div>
+    </div>
+    <p class="q-enunciado">As relações ecológicas são interações entre os seres vivos que podem ocorrer entre indivíduos da mesma espécie ou de espécies diferentes. O controle biológico utiliza relações ecológicas desarmônicas para o manejo de pragas, como ilustrado pela joaninha se alimentando de pulgões.</p>
+    <p class="q-enunciado" style="margin-top:10px">Qual tipo de interação está sendo ilustrada e qual sua classificação?</p>
+    <ul class="opts" id="opts5">
+      <li><button class="opt-btn" data-q="5" data-letter="A"><span class="opt-letter">A</span> Mutualismo, uma relação interespecífica harmônica.</button></li>
+      <li><button class="opt-btn" data-q="5" data-letter="B"><span class="opt-letter">B</span> Parasitismo, uma relação interespecífica desarmônica.</button></li>
+      <li><button class="opt-btn" data-q="5" data-letter="C"><span class="opt-letter">C</span> Predatismo, uma relação interespecífica desarmônica (predador se alimenta da presa).</button></li>
+      <li><button class="opt-btn" data-q="5" data-letter="D"><span class="opt-letter">D</span> Competição, uma relação interespecífica desarmônica.</button></li>
+      <li><button class="opt-btn" data-q="5" data-letter="E"><span class="opt-letter">E</span> Comensalismo, uma relação interespecífica harmônica.</button></li>
+    </ul>
+    <div class="feedback" id="fb5"></div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       QUESTÃO 06 — Transgênicos (OBJETIVA)
+  ══════════════════════════════════════════ -->
+  <div class="q-card" id="q6">
+    <div class="q-head">
+      <div class="q-num">6</div>
+      <div class="q-meta">
+        <span class="q-tag">Transgênicos · Engenharia Genética</span>
+        <span class="q-hab">EM13CNT301</span>
+        <span class="q-diff q-diff-f">Fácil</span>
+      </div>
+    </div>
+    <p class="q-enunciado">Organismos transgênicos são aqueles que tiveram seu material genético modificado pela inserção de um ou mais genes de outra espécie. Essa tecnologia permite a criação de organismos com características desejáveis, como maior resistência a pragas ou melhor valor nutricional.</p>
+    <p class="q-enunciado" style="margin-top:10px">Sobre os organismos transgênicos, é correto afirmar que:</p>
+    <ul class="opts" id="opts6">
+      <li><button class="opt-btn" data-q="6" data-letter="A"><span class="opt-letter">A</span> São organismos que surgem espontaneamente na natureza através de mutações genéticas.</button></li>
+      <li><button class="opt-btn" data-q="6" data-letter="B"><span class="opt-letter">B</span> Sua produção visa exclusivamente a redução da biodiversidade.</button></li>
+      <li><button class="opt-btn" data-q="6" data-letter="C"><span class="opt-letter">C</span> Caracterizam-se pela inserção de genes de uma espécie em outra, conferindo novas características.</button></li>
+      <li><button class="opt-btn" data-q="6" data-letter="D"><span class="opt-letter">D</span> Não necessitam de avaliação de biossegurança.</button></li>
+      <li><button class="opt-btn" data-q="6" data-letter="E"><span class="opt-letter">E</span> São sinônimos de OGMs, mas não podem ser utilizados em alimentos.</button></li>
+    </ul>
+    <div class="feedback" id="fb6"></div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       QUESTÃO 07 — Abelhas / Polinização (OBJETIVA)
+  ══════════════════════════════════════════ -->
+  <div class="q-card" id="q7">
+    <div class="q-head">
+      <div class="q-num">7</div>
+      <div class="q-meta">
+        <span class="q-tag">Polinização · Serviços Ecossistêmicos</span>
+        <span class="q-hab">EM13CNT206</span>
+        <span class="q-diff q-diff-f">Fácil</span>
+      </div>
+    </div>
+    <p class="q-enunciado">As abelhas desempenham um papel crucial na polinização de diversas espécies vegetais, sendo responsáveis pela reprodução de grande parte das plantas com flores e pela produção de alimentos.</p>
+    <p class="q-enunciado" style="margin-top:10px">Qual a importância das abelhas e da polinização para os ecossistemas e para a produção de alimentos?</p>
+    <ul class="opts" id="opts7">
+      <li><button class="opt-btn" data-q="7" data-letter="A"><span class="opt-letter">A</span> As abelhas são predadoras de pragas agrícolas.</button></li>
+      <li><button class="opt-btn" data-q="7" data-letter="B"><span class="opt-letter">B</span> A polinização realizada pelas abelhas é essencial para a reprodução de muitas plantas, garantindo a formação de sementes e frutos.</button></li>
+      <li><button class="opt-btn" data-q="7" data-letter="C"><span class="opt-letter">C</span> As abelhas são importantes apenas para a produção de mel.</button></li>
+      <li><button class="opt-btn" data-q="7" data-letter="D"><span class="opt-letter">D</span> A polinização é um processo que ocorre independentemente da ação de animais.</button></li>
+      <li><button class="opt-btn" data-q="7" data-letter="E"><span class="opt-letter">E</span> O desaparecimento das abelhas não teria impacto significativo na produção de alimentos.</button></li>
+    </ul>
+    <div class="feedback" id="fb7"></div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       QUESTÃO 08 — Unidades de Conservação (DISCURSIVA)
+  ══════════════════════════════════════════ -->
+  <div class="q-card" id="q8">
+    <div class="q-head">
+      <div class="q-num">8</div>
+      <div class="q-meta">
+        <span class="q-tag">SNUC · Unidades de Conservação</span>
+        <span class="q-hab">EM13CNT207</span>
+        <span class="q-diff q-diff-m">Média · Discursiva</span>
+      </div>
+    </div>
+    <p class="q-enunciado">O Brasil possui diversas Unidades de Conservação (UCs), divididas em duas categorias principais: Unidades de Proteção Integral e Unidades de Uso Sustentável.</p>
+    <p class="q-enunciado" style="margin-top:10px;font-weight:600">Explique a diferença fundamental entre as Unidades de Proteção Integral e as Unidades de Uso Sustentável, citando um exemplo de cada tipo e suas finalidades.</p>
+    <textarea class="disc-area" id="disc8" placeholder="Escreva sua resposta aqui…" rows="6"></textarea>
+    <p class="disc-label">Mínimo recomendado: 4 linhas com exemplos concretos.</p>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       QUESTÃO 09 — Mercúrio / Biomagnificação (DISCURSIVA)
+  ══════════════════════════════════════════ -->
+  <div class="q-card" id="q9">
+    <div class="q-head">
+      <div class="q-num">9</div>
+      <div class="q-meta">
+        <span class="q-tag">Mercúrio · Cadeia Alimentar · Saúde</span>
+        <span class="q-hab">EM13CNT206</span>
+        <span class="q-diff q-diff-h">Alta · Discursiva</span>
+      </div>
+    </div>
+    <p class="q-enunciado">A contaminação por mercúrio em ecossistemas aquáticos representa um grave problema ambiental. O metal se concentra nos organismos ao longo da cadeia alimentar (biomagnificação).</p>
+    <p class="q-enunciado" style="margin-top:10px;font-weight:600">Discorra sobre como a contaminação por mercúrio afeta os ecossistemas e os seres humanos, explicando os mecanismos de bioacumulação e biomagnificação.</p>
+    <textarea class="disc-area" id="disc9" placeholder="Escreva sua resposta aqui…" rows="7"></textarea>
+    <p class="disc-label">Inclua: mecanismo de bioacumulação, biomagnificação e efeitos na saúde humana.</p>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       QUESTÃO 10 — DNA e RNA (DISCURSIVA)
+  ══════════════════════════════════════════ -->
+  <div class="q-card" id="q10">
+    <div class="q-head">
+      <div class="q-num">10</div>
+      <div class="q-meta">
+        <span class="q-tag">DNA · RNA · Engenharia Genética</span>
+        <span class="q-hab">EM13CNT203</span>
+        <span class="q-diff q-diff-m">Média · Discursiva</span>
+      </div>
+    </div>
+    <p class="q-enunciado">A engenharia genética revolucionou a biotecnologia. A compreensão da estrutura do DNA e do RNA é fundamental para o avanço dessas tecnologias.</p>
+    <p class="q-enunciado" style="margin-top:10px;font-weight:600">Explique a importância do DNA e RNA para a vida e cite as principais diferenças estruturais entre essas duas moléculas.</p>
+    <textarea class="disc-area" id="disc10" placeholder="Escreva sua resposta aqui…" rows="7"></textarea>
+    <p class="disc-label">Inclua: função de cada molécula, tipo de açúcar, fita simples ou dupla, e bases nitrogenadas.</p>
+  </div>
+
+  <!-- BOTÕES -->
+  <div class="action-row">
+    <button class="action-btn" id="btn-submit">📤 Enviar Atividade</button>
+    <button class="action-btn" id="btn-clear">🗑️ Limpar Escolhas</button>
+  </div>
+
+</div><!-- /wrap -->
+
+<div id="send-status"></div>
+
+<div class="wrap">
+  <div id="hab-panel">
+    <h4>📚 Habilidades objetivas a reforçar:</h4>
+    <ul id="hab-list"></ul>
+  </div>
+  <div id="result-panel">
+    <div class="score-ring">
+      <span class="score-pct" id="score-pct">—</span>
+      <span class="score-frac" id="score-frac">—</span>
+    </div>
+    <h3 id="result-msg">—</h3>
+    <p id="result-sub">—</p>
+    <button id="btn-retry" onclick="location.reload()">↻ Refazer Atividade</button>
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════════
+//  DADOS DOS ALUNOS — 2º DS (Noturno)
+// ═══════════════════════════════════════════════════════════
+const STUDENTS = {
+  "2DS": [
+    [1,  "ALAN EDUARDO DOS SANTOS BARBOSA",      "000111875511","X","25/02/2010","0000111875511XSP@al.educacao.sp.gov.br"],
+    [3,  "ANA BEATRIZ DE LIMA TOMAZ",             "000113210071","9","08/08/2009","00001132100719SP@al.educacao.sp.gov.br"],
+    [4,  "ANA BEATRIZ MOURA AMARO OLIVEIRA",      "000110212382","1","25/11/2009","00001102123821SP@al.educacao.sp.gov.br"],
+    [6,  "ANDRÉ DOS REIS ARAÚJO",                 "000111880119","2","03/04/2009","00001118801192SP@al.educacao.sp.gov.br"],
+    [7,  "ANNY LUIZA MARQUES DE SOUZA",           "000111794550","9","25/02/2010","00001117945509SP@al.educacao.sp.gov.br"],
+    [8,  "ARTUR SANTOS DE OLIVEIRA",              "000113221702","7","14/03/2010","00001132217027SP@al.educacao.sp.gov.br"],
+    [9,  "BEATRIZ TEODORO FURLAN",                "000114163979","8","12/01/2010","00001141639798SP@al.educacao.sp.gov.br"],
+    [10, "CATHARINA KESS RUBIO MENDES",           "000115022281","5","14/06/2009","00001150222815SP@al.educacao.sp.gov.br"],
+    [11, "DANIEL FERREIRA DOS SANTOS",            "000112222620","2","10/08/2009","00001122226202SP@al.educacao.sp.gov.br"],
+    [14, "ERIK TAVARES AUGUSTO",                  "000110062207","X","16/08/2009","0000110062207XSP@al.educacao.sp.gov.br"],
+    [15, "FELIPE AUGUSTO DE SOUZA ALCARAZ",       "000112600640","3","31/12/2009","00001126006403SP@al.educacao.sp.gov.br"],
+    [16, "GEOVANNA DOS SANTOS MENDES",            "000114164783","7","19/02/2010","00001141647837SP@al.educacao.sp.gov.br"],
+    [17, "HENRY ALVES TOZZI DA SILVA PIRES",      "000113218140","9","10/02/2010","00001132181409SP@al.educacao.sp.gov.br"],
+    [18, "ISABELLA MONTEIRO BARCELLOS",           "000114240619","2","07/03/2010","00001142406192SP@al.educacao.sp.gov.br"],
+    [19, "JENNIFER CARVALHO COSTA",               "000114160908","3","13/03/2009","00001141609083SP@al.educacao.sp.gov.br"],
+    [20, "JUHAN DOS SANTOS MARIN",                "000114240559","X","08/05/2009","0000114240559XSP@al.educacao.sp.gov.br"],
+    [21, "JULIA ARAUJO DE LIMA",                  "000111722111","8","23/09/2009","00001117221118SP@al.educacao.sp.gov.br"],
+    [22, "JULIANA SILVA DE LIMA NEVES",           "000111772387","2","17/09/2009","00001117723872SP@al.educacao.sp.gov.br"],
+    [25, "LEANDRO MACIEL CORRÊA",                 "000113805632","7","21/10/2009","00001138056327SP@al.educacao.sp.gov.br"],
+    [26, "LEONARDO LIMA DE JESUS",                "000112210601","4","06/04/2009","00001122106014SP@al.educacao.sp.gov.br"],
+    [27, "MARIAH LUIZA DO NASCIMENTO CARVALHO",   "000114156246","7","20/07/2009","00001141562467SP@al.educacao.sp.gov.br"],
+    [29, "MISAEL MARTINS DE ANDRADE JUNIOR",      "000113211001","4","25/02/2010","00001132110014SP@al.educacao.sp.gov.br"],
+    [30, "MURILO GABRIEL RIOS LEAO",              "000112226021","0","19/05/2009","00001122260210SP@al.educacao.sp.gov.br"],
+    [31, "NATAN SANTOS XAVIER",                   "000112219880","2","24/11/2009","00001122198802SP@al.educacao.sp.gov.br"],
+    [33, "NICOLE PEREIRA LUCIANO",                "000113213561","8","06/12/2008","00001132135618SP@al.educacao.sp.gov.br"],
+    [35, "PIETRO COELHO MARTINS",                 "000115110037","7","27/08/2009","00001151100377SP@al.educacao.sp.gov.br"],
+    [36, "POUL WILLYAM MACHADO ALVES DOS SANTOS", "000111126877","0","28/12/2009","00001111268770SP@al.educacao.sp.gov.br"],
+    [38, "RAPHAEL DA SILVA TAVARES",              "000115083570","9","20/12/2009","00001150835709SP@al.educacao.sp.gov.br"],
+    [40, "VICTOR DANIEL GARCIA SANCHEZ",          "000121000792","7","16/02/2009","00001210007927SP@al.educacao.sp.gov.br"],
+    [42, "VITOR HUGO SILVA RIO BRANCO",           "000113209983","3","08/01/2010","00001132099833SP@al.educacao.sp.gov.br"],
+    [43, "VITOR VINICIUS PEREIRA VASCONCELOS",    "000110335387","1","05/09/2009","00001103353871SP@al.educacao.sp.gov.br"],
+    [45, "ESTELA RODRIGUES DE OLIVEIRA",          "000114241807","8","06/11/2009","00001142418078SP@al.educacao.sp.gov.br"]
+  ]
+};
+
+// ═══════════════════════════════════════════════════════════
+//  GABARITO E FEEDBACKS (questões 1-7 objetivas)
+// ═══════════════════════════════════════════════════════════
+const ANSWERS = { 1:'A', 2:'C', 3:'B', 4:'C', 5:'C', 6:'C', 7:'B' };
+const TOTAL_OBJ = 7;
+
+const FEEDBACKS = {
+  1: { A: "✓ Correto! Bioacumulação = acúmulo num organismo ao longo do tempo; biomagnificação = aumento progressivo ao longo da cadeia alimentar.",
+       wrong: "✗ A alternativa correta é A. Bioacumulação refere-se ao acúmulo dentro de um organismo; biomagnificação é o aumento de concentração ao longo da cadeia trófica." },
+  2: { C: "✓ Correto! A biossegurança avalia e controla riscos à saúde e ao meio ambiente decorrentes do uso de OGMs.",
+       wrong: "✗ A alternativa correta é C. A biossegurança não proíbe, mas regula os riscos do uso de OGMs." },
+  3: { B: "✓ Correto! O DNA é o material genético localizado principalmente no núcleo das células eucariontes.",
+       wrong: "✗ A alternativa correta é B. Nas células eucariontes, o DNA está no núcleo." },
+  4: { C: "✓ Correto! Preservação = natureza intocada; conservação = manejo racional e uso sustentável.",
+       wrong: "✗ A alternativa correta é C. Não confunda: preservação protege sem uso; conservação permite uso sustentável." },
+  5: { C: "✓ Correto! A joaninha predando pulgões é predatismo: relação interespecífica desarmônica.",
+       wrong: "✗ A alternativa correta é C. Joaninha e pulgão é predatismo — relação desarmônica entre espécies diferentes." },
+  6: { C: "✓ Correto! Transgênicos caracterizam-se exatamente pela inserção de genes de uma espécie em outra.",
+       wrong: "✗ A alternativa correta é C. Transgênicos surgem pela inserção deliberada de genes de outra espécie." },
+  7: { B: "✓ Correto! A polinização pelas abelhas é essencial para a reprodução de plantas e formação de frutos.",
+       wrong: "✗ A alternativa correta é B. Sem polinizadores como as abelhas, grande parte da produção agrícola seria comprometida." }
+};
+
+// ═══════════════════════════════════════════════════════════
+//  HABILIDADES POR QUESTÃO
+// ═══════════════════════════════════════════════════════════
+const HABILIDADES = {
+  1: { cod: "EM13CNT206", tema: "Bioacumulação e Biomagnificação" },
+  2: { cod: "EM13CNT301", tema: "OGMs e Biossegurança" },
+  3: { cod: "EM13CNT203", tema: "Célula Eucarionte e Material Genético" },
+  4: { cod: "EM13CNT207", tema: "Preservação e Conservação Ambiental" },
+  5: { cod: "EM13CNT206", tema: "Relações Ecológicas – Predatismo" },
+  6: { cod: "EM13CNT301", tema: "Organismos Transgênicos" },
+  7: { cod: "EM13CNT206", tema: "Polinização e Serviços Ecossistêmicos" }
+};
+
+// ═══════════════════════════════════════════════════════════
+//  ENDPOINT APPS SCRIPT
+// ═══════════════════════════════════════════════════════════
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyERmYA0s2pKTrz47WrXoP52JVcfZL0pnJwyTwBdC_rpfzi5e3xx24pXfZTSUnAEuZB/exec';
+
+// ═══════════════════════════════════════════════════════════
+//  ESTADO
+// ═══════════════════════════════════════════════════════════
+let chosen = {}, submitted = false, switchCount = 0;
+
+// ═══════════════════════════════════════════════════════════
+//  MONITORAMENTO DE ABA
+// ═══════════════════════════════════════════════════════════
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden && !submitted) {
+    switchCount++;
+    const w = document.getElementById('tab-warning');
+    w.classList.add('vis');
+    document.getElementById('tab-warn-txt').textContent =
+      `⚠️ Você saiu da aba ${switchCount}x. Isso será registrado.`;
+  }
+});
+
+// ═══════════════════════════════════════════════════════════
+//  DROPDOWN DE TURMA / ALUNO
+// ═══════════════════════════════════════════════════════════
+document.getElementById('sel-turma').addEventListener('change', function() {
+  const turma = this.value;
+  const sel = document.getElementById('sel-aluno');
+  sel.innerHTML = '<option value="">Selecione seu nome…</option>';
+  if (!turma) { sel.disabled = true; return; }
+  sel.disabled = false;
+  (STUDENTS[turma] || []).forEach(s => {
+    const opt = document.createElement('option');
+    opt.value = s[0] + '–' + s[1];
+    opt.textContent = s[0] + ' – ' + s[1];
+    sel.appendChild(opt);
+  });
+});
+
+document.getElementById('sel-aluno').addEventListener('change', function() {
+  const turma = document.getElementById('sel-turma').value;
+  const val = this.value;
+  clearFields();
+  if (!turma || !val) return;
+  const num = parseInt(val.split('–')[0]);
+  const found = (STUDENTS[turma] || []).find(s => s[0] === num);
+  if (found) {
+    document.getElementById('inp-chamada').value = found[0];
+    document.getElementById('inp-ra').value      = found[2] + '-' + found[3];
+    document.getElementById('inp-nasc').value    = found[4];
+    document.getElementById('inp-email').value   = found[5];
+  }
+});
+
+function clearFields() {
+  ['inp-chamada','inp-ra','inp-nasc','inp-email'].forEach(id => {
+    document.getElementById(id).value = '';
+  });
+}
+
+// Data de hoje
+document.getElementById('inp-date').valueAsDate = new Date();
+
+// ═══════════════════════════════════════════════════════════
+//  LÓGICA DAS QUESTÕES OBJETIVAS
+// ═══════════════════════════════════════════════════════════
+for (let i = 1; i <= 7; i++) {
+  document.querySelectorAll(`#opts${i} .opt-btn`).forEach(btn => {
+    btn.addEventListener('click', e => {
+      e.preventDefault();
+      if (submitted) return;
+      const q = parseInt(btn.dataset.q);
+      const letter = btn.dataset.letter;
+      chosen[q] = letter;
+      document.querySelectorAll(`#opts${q} .opt-btn`).forEach(b => b.classList.remove('sel'));
+      btn.classList.add('sel');
+      document.getElementById('q' + q).classList.add('answered');
+      updateProgress();
+    });
+  });
+}
+
+// Discursivas: marcar como preenchida ao digitar
+[8,9,10].forEach(i => {
+  document.getElementById('disc' + i).addEventListener('input', function() {
+    const card = document.getElementById('q' + i);
+    if (this.value.trim().length > 0) card.classList.add('answered');
+    else card.classList.remove('answered');
+    updateProgress();
+  });
+});
+
+function countAnswered() {
+  let n = Object.keys(chosen).length;
+  [8,9,10].forEach(i => {
+    if ((document.getElementById('disc' + i).value || '').trim().length > 0) n++;
+  });
+  return n;
+}
+
+function updateProgress() {
+  const n = countAnswered();
+  document.getElementById('prog-fill').style.width = (n / 10 * 100) + '%';
+  document.getElementById('prog-label').textContent = n + ' / 10 questões respondidas';
+}
+
+// ═══════════════════════════════════════════════════════════
+//  LIMPAR
+// ═══════════════════════════════════════════════════════════
+document.getElementById('btn-clear').addEventListener('click', () => {
+  if (submitted) return;
+  chosen = {};
+  for (let i = 1; i <= 7; i++) {
+    document.querySelectorAll(`#opts${i} .opt-btn`).forEach(b => b.classList.remove('sel'));
+    document.getElementById('q' + i).classList.remove('answered');
+  }
+  [8,9,10].forEach(i => {
+    document.getElementById('disc' + i).value = '';
+    document.getElementById('q' + i).classList.remove('answered');
+  });
+  updateProgress();
+});
+
+// ═══════════════════════════════════════════════════════════
+//  ENVIO
+// ═══════════════════════════════════════════════════════════
+document.getElementById('btn-submit').addEventListener('click', enviar);
+
+function enviar() {
+  if (submitted) return;
+
+  const turma  = document.getElementById('sel-turma').value;
+  const aluno  = document.getElementById('sel-aluno').value;
+  const data   = document.getElementById('inp-date').value;
+  const email  = document.getElementById('inp-email').value;
+  const num    = document.getElementById('inp-chamada').value;
+  const nasc   = document.getElementById('inp-nasc').value;
+
+  if (!turma || !aluno) { alert('Selecione turma e seu nome!'); return; }
+
+  const objRespondidas = Object.keys(chosen).length;
+  const discRespondidas = [8,9,10].filter(i =>
+    (document.getElementById('disc' + i).value || '').trim().length > 0
+  ).length;
+
+  if (objRespondidas < 7 || discRespondidas < 3) {
+    alert(`Responda todas as questões antes de enviar.\nObjetivas: ${objRespondidas}/7  |  Discursivas: ${discRespondidas}/3`);
+    return;
+  }
+
+  submitted = true;
+
+  // ── Corrige objetivas e mostra feedbacks ──
+  let score = 0;
+  const naoAtingidas = [];
+
+  for (let i = 1; i <= 7; i++) {
+    const user    = chosen[i];
+    const correct = ANSWERS[i];
+    document.querySelectorAll(`#opts${i} .opt-btn`).forEach(b => {
+      b.disabled = true;
+      if (b.dataset.letter === correct) b.classList.add('correct-show');
+      else if (b.dataset.letter === user && user !== correct) b.classList.add('wrong-show');
+    });
+    const fb = document.getElementById('fb' + i);
+    fb.classList.add('show');
+    if (user === correct) {
+      score++;
+      fb.classList.add('ok');
+      fb.textContent = FEEDBACKS[i][correct];
+    } else {
+      fb.classList.add('err');
+      fb.textContent = FEEDBACKS[i].wrong;
+      const hab = HABILIDADES[i];
+      const existe = naoAtingidas.some(h => h.cod === hab.cod && h.tema === hab.tema);
+      if (!existe) naoAtingidas.push(hab);
+    }
+  }
+
+  // ── Bloqueia discursivas ──
+  [8,9,10].forEach(i => document.getElementById('disc' + i).disabled = true);
+
+  // ── Resultado ──
+  const pct = Math.round(score / TOTAL_OBJ * 100);
+  document.getElementById('result-panel').style.display = 'block';
+  document.getElementById('score-pct').textContent  = pct + '%';
+  document.getElementById('score-frac').textContent = score + '/' + TOTAL_OBJ;
+  document.getElementById('result-msg').textContent =
+    pct === 100 ? 'Excelente! 🏆' : pct >= 70 ? 'Bom trabalho! 👍' : pct >= 50 ? 'Continue estudando 📚' : 'Revise os conteúdos 📖';
+  document.getElementById('result-sub').textContent =
+    `Você acertou ${score} de ${TOTAL_OBJ} questões objetivas.`;
+
+  // Atualiza anel
+  const ring = document.querySelector('.score-ring');
+  ring.style.background = `conic-gradient(var(--verde) ${pct}%, var(--cinza2) ${pct}%)`;
+
+  if (naoAtingidas.length > 0) {
+    const ul = document.getElementById('hab-list');
+    ul.innerHTML = naoAtingidas.map(h =>
+      `<li><strong>${h.cod}</strong> — ${h.tema}</li>`
+    ).join('');
+    document.getElementById('hab-panel').classList.add('vis');
+  }
+
+  document.getElementById('btn-submit').disabled = true;
+  document.getElementById('btn-clear').disabled  = true;
+
+  // ── Envia ao Apps Script ──
+  const statusDiv = document.getElementById('send-status');
+  statusDiv.style.display = 'block';
+  statusDiv.style.background = '#fff8e1';
+  statusDiv.style.color = '#7a5500';
+  statusDiv.innerHTML = '⏳ Enviando respostas ao servidor…';
+
+  const nomeAluno = aluno.split('–').slice(1).join('–').trim();
+
+  const payload = {
+    school:        'WMS',
+    sheetName:     'Respostas 2ºDS',
+    studentName:   nomeAluno,
+    studentNumber: num,
+    studentGrade:  '2º DS (Noturno)',
+    studentEmail:  email,
+    studentNasc:   nasc,
+    date:          data,
+    switchCount:   switchCount,
+    // Objetivas
+    q1: chosen[1] || '', q2: chosen[2] || '', q3: chosen[3] || '',
+    q4: chosen[4] || '', q5: chosen[5] || '', q6: chosen[6] || '',
+    q7: chosen[7] || '',
+    // Discursivas
+    d8:  (document.getElementById('disc8').value  || '').trim(),
+    d9:  (document.getElementById('disc9').value  || '').trim(),
+    d10: (document.getElementById('disc10').value || '').trim(),
+    // Score objetivas
+    scoreObj: score,
+    totalObj:  TOTAL_OBJ,
+    notaObj:   Math.round(score / TOTAL_OBJ * 10 * 10) / 10
+  };
+
+  enviarAppScript(payload,
+    () => {
+      statusDiv.style.background = '#d4ede1';
+      statusDiv.style.color = '#145c2e';
+      statusDiv.innerHTML = '✅ Atividade registrada com sucesso!';
+    },
+    (errMsg) => {
+      statusDiv.style.background = '#fde8e8';
+      statusDiv.style.color = '#8b2222';
+      statusDiv.innerHTML = '⚠️ Erro ao enviar: ' + errMsg +
+        '<br><small>Suas respostas foram computadas. Fale com o professor.</small>';
+    }
+  );
+}
+
+// ═══════════════════════════════════════════════════════════
+//  JSONP PARA APPS SCRIPT
+// ═══════════════════════════════════════════════════════════
+function toBase64UTF8(str) {
+  const bytes = new TextEncoder().encode(str);
+  let bin = '';
+  bytes.forEach(b => bin += String.fromCharCode(b));
+  return btoa(bin);
+}
+
+function enviarAppScript(payload, onSuccess, onError) {
+  const cbName = 'cb_' + Date.now() + '_' + Math.floor(Math.random() * 99999);
+  const b64    = toBase64UTF8(JSON.stringify(payload));
+  const url    = SCRIPT_URL + '?callback=' + cbName + '&data=' + encodeURIComponent(b64);
+
+  const script = document.createElement('script');
+  script.src   = url;
+
+  const timer = setTimeout(() => {
+    cleanup();
+    onSuccess({ status: 'ok', via: 'timeout-assumed' });
+  }, 18000);
+
+  function cleanup() {
+    clearTimeout(timer);
+    delete window[cbName];
+    if (script.parentNode) script.parentNode.removeChild(script);
+  }
+
+  window[cbName] = function(resp) {
+    cleanup();
+    if (resp && (resp.status === 'ok' || resp.result === 'success')) onSuccess(resp);
+    else onError('Servidor retornou erro: ' + JSON.stringify(resp));
+  };
+
+  script.onerror = function() {
+    cleanup();
+    onSuccess({ status: 'ok', via: 'jsonp-onerror-redirect' });
+  };
+
+  document.head.appendChild(script);
+}
+
+updateProgress();
+</script>
+</body>
+</html>
